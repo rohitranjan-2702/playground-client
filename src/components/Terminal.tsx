@@ -27,25 +27,28 @@ const TerminalComponent = ({ socket }: { socket: Socket }) => {
   //   console.log("rendering terminal component");
 
   useEffect(() => {
-    if (!terminalRef || !terminalRef.current) {
+    if (!terminalRef || !terminalRef.current || !socket) {
       return;
     }
 
-    socket.on("data", (data) => {
-      if (data instanceof ArrayBuffer) {
-        term.write(ab2str(data));
-      }
-    });
-
+    socket.emit("createTerminal");
+    socket.on("terminal", terminalHandler);
     const term = new Terminal(OPTIONS_TERM);
     term.loadAddon(fitAddon);
     term.open(terminalRef.current);
     fitAddon.fit();
-    term.write("Hello from RoHiT $ ");
+    function terminalHandler({ data }: any) {
+      if (data instanceof ArrayBuffer) {
+        console.error(data);
+        console.log(ab2str(data));
+        term.write(ab2str(data));
+      }
+    }
     term.onData((data) => {
       console.log(data);
-      // term.write(data);
-      socket.emit("data", new TextEncoder().encode("\x00" + data));
+      socket.emit("terminalData", {
+        data,
+      });
     });
 
     socket.emit("terminalData", {
