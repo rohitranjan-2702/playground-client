@@ -6,7 +6,7 @@ import { useSocket } from "@/hooks/useSocket";
 import { useEffect, useRef, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
-const OUTPUT_URL = "http://localhost:3000";
+const OUTPUT_URL = "https://pgcllient.onrender.com";
 
 export interface RemoteFile {
   type: "file" | "dir";
@@ -81,6 +81,7 @@ export default function Example() {
         <Panel minSize={20}>
           <PanelGroup direction="vertical" className="bg-slate-300">
             <Panel>
+              {/* OUTPUT */}
               <div className="w-full h-full">
                 <iframe width={"100%"} height={"100%"} src={`${OUTPUT_URL}`} />
               </div>
