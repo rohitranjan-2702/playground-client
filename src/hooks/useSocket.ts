@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
 const EXECUTION_ENGINE_URI =
-  process.env.NEXT_PUBLIC_EXECUTION_ENGINE_URI || "http://localhost:8000";
+  process.env.NEXT_PUBLIC_EXECUTION_ENGINE_URI || "http://localhost:3000";
 
 export function useSocket(pgId: string) {
   const [socket, setSocket] = useState<Socket | null>(null);

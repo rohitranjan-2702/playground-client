@@ -11,7 +11,7 @@ export default function Home() {
     if (serverLoaded) {
       router.push("/playground");
     } else {
-      alert("Server not loaded yet, please wait");
+      alert("Server not loaded yet, please wait a few seconds and try again.");
     }
   };
 

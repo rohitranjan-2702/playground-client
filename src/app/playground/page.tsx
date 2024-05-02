@@ -6,7 +6,7 @@ import { useSocket } from "@/hooks/useSocket";
 import { useEffect, useRef, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
-const OUTPUT_URL = "https://pgcllient.onrender.com";
+const OUTPUT_URL = "http://34.215.237.214:3000";
 
 export interface RemoteFile {
   type: "file" | "dir";
@@ -26,6 +26,7 @@ export interface File {
 export default function Example() {
   const [loaded, setLoaded] = useState(false);
   const socket = useSocket("pgId");
+  const [refresh, setRefresh] = useState(0); // [1
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [fileStructure, setFileStructure] = useState<File[]>([]);
 
@@ -80,14 +81,27 @@ export default function Example() {
         <PanelResizeHandle className="w-1 bg-slate-500" />
         <Panel minSize={20}>
           <PanelGroup direction="vertical" className="bg-slate-300">
+            <Panel maxSize={5}>
+              <button
+                className="bg-black text-yellow-500 p-1 rounded-full"
+                onClick={() => setRefresh((prev) => prev + 1)}
+              >
+                Refresh
+              </button>
+            </Panel>
             <Panel>
               {/* OUTPUT */}
               <div className="w-full h-full">
-                <iframe width={"100%"} height={"100%"} src={`${OUTPUT_URL}`} />
+                <iframe
+                  width={"100%"}
+                  height={"100%"}
+                  src={`${OUTPUT_URL}`}
+                  key={refresh}
+                />
               </div>
             </Panel>
             <PanelResizeHandle className="h-1 bg-slate-500" />
-            <Panel className="bg-black text-white">
+            <Panel className="bg-black text-white" minSize={20}>
               <div className="w-full h-fit">
                 {socket && <TerminalComponent socket={socket} />}
               </div>
