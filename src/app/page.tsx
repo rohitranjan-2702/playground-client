@@ -30,7 +30,8 @@ export default function Home() {
       <div className="p-12 w-full h-screen flex bg-black justify-center space-y-6 flex-col items-center">
         <h1 className="text-4xl text-purple-600">Codedamn Playground</h1>
         <button
-          onClick={() => handleClick()}
+          // onClick={() => handleClick()}
+          onClick={() => router.push("/playground")}
           className="block px-4 py-2 rounded-full bg-transparent text-purple-300 ring-1 ring-purple-400"
         >
           Start Playground

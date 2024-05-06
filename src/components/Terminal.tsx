@@ -22,7 +22,13 @@ const OPTIONS_TERM = {
   },
 };
 
-const TerminalComponent = ({ socket }: { socket: Socket }) => {
+const TerminalComponent = ({
+  socket,
+  command,
+}: {
+  socket: Socket;
+  command: string;
+}) => {
   const terminalRef = useRef(null);
   //   console.log("rendering terminal component");
 
@@ -60,7 +66,12 @@ const TerminalComponent = ({ socket }: { socket: Socket }) => {
     };
   }, [terminalRef]);
 
-  return <div className="text-left overflow-y-hidden" ref={terminalRef}></div>;
+  return (
+    <div
+      className="text-left overflow-y-hidden h-full "
+      ref={terminalRef}
+    ></div>
+  );
 };
 
 export default TerminalComponent;
