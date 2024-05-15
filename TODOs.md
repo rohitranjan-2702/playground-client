@@ -1,6 +1,8 @@
 # TODOs
 
-- [ ] make frontend for code editor using monaco editor
+- [ ] integrate S3
+
+- [x] make frontend for code editor using monaco editor
 - [ ] make file sync feature to object store
 
 - [x] integrate xterm.js
@@ -9,7 +11,40 @@
 
 - [x] not able to open the desired file path - fixed (had to make the directory first, added a cmd in dockerfile for so)
 
-- [ ] dockerise and deploy to ec2
+- [x] dockerise and deploy to ec2
+
+playground.devphilic.tech
+
+sudo chown -R $USER:$USER /var/www/playground.devphilic.tech/html
+
+sudo chmod -R 755 /var/www/playground.devphilic.tech
+
+sudo nano /var/www/playground.devphilic.tech/html/index.html
+
+sudo nano /etc/nginx/sites-available/playground.devphilic.tech
+
+server {
+listen 80;
+listen [::]:80;
+
+        root /var/www/playground.devphilic.tech/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name playground.devphilic.tech;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+}
+
+sudo ln -s /etc/nginx/sites-available/playground.devphilic.tech /etc/nginx/sites-enabled/
+
+sudo systemctl reload nginx
+
+<!-- certbot -->
+
+sudo certbot --nginx -d playground.devphilic.tech
 
 link: https://docs.google.com/document/d/1H6U4j7HcxfA-81lk4LiUnr4ksJKffyTigPPc8gAlnaM/edit
 

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 // const OUTPUT_URL = "http://localhost:3000/react";
-const OUTPUT_URL = "http://34.215.237.214:3000";
+const OUTPUT_URL = process.env.NEXT_PUBLIC_EXECUTION_ENGINE_URI;
 
 export interface RemoteFile {
   type: "file" | "dir";
@@ -73,7 +73,13 @@ export default function Example() {
                     onClick={() => onSelect(file as File)}
                     className="text-white p-2 border-1 border-black bg-gray-800 hover:bg-gray-700 cursor-pointer"
                   >
-                    {file.name}
+                    {selectedFile?.name === file.name ? (
+                      <p className="bg-gray-200 text-black px-2 rounded-md">
+                        {file.name}
+                      </p>
+                    ) : (
+                      <p className="">{file.name}</p>
+                    )}
                   </div>
                 ))}
               </div>
